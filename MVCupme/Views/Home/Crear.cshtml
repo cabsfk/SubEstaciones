@@ -1,0 +1,556 @@
+﻿@using Microsoft.AspNet.Identity
+@if (User.Identity.IsAuthenticated == true)
+{
+<div id="map"></div>
+<div id="info-pane" class="leaflet-bar"></div>
+
+<div class="col-sm-2 col-md-2" id="panel_formulario" style="max-width:400px;min-width:350px;">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Crear Subestación.</h3>
+        </div>
+        <div class="panel-body">
+            <div id="FormCPPgn0">
+                <form style="text-align: center;">
+                    <h5>Seleccione la opción de gestión de Subestaciones</h5>
+                    <div class="btn-group-vertical" role="group" >
+                        <button type="button" class="btn btn-default " id="CrearCP"><h6>CREAR<span class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true"></span> </h6></button>
+                        <button type="button" class="btn btn-default" id="EliminarCP"><h6>MIS SUBESTACIONES<span class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true"></span></h6></button>
+                        <button type="button" class="btn btn-default" id="Actualizar"><h6>ACTUALIZACIÓN<span class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true"></span></h6></button>
+                        <button type="button" class="btn btn-default" id="MisActualiciones"><h6>MIS ACTUALIZACIONES<span class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true"></span></h6></button>
+                    </div>
+                </form>             
+            </div>
+            <div id="FormCPPgn1" class="hide">
+                <button class="btn btn-danger pull-right btn-xs " type="button" onclick="CancelarCrear()">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Inicio
+                </button>
+                <ul class="nav nav-wizard">
+                    <li class="active"><a href="#">0</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                </ul>
+                <form style="text-align: center;">
+                    <h5>Usted deberá seguir los siguientes pasos para crear una <strong>Subestación</strong></h5>
+                    <ul class="list-group">
+                        <li class="list-group-item"><h6>1. Ubicar el municipio al que pertenece. </h6></li>
+                        <li class="list-group-item"><h6>2. Definir la ubicacion. </h6></li>
+                        <li class="list-group-item"><h6>3. Diligenciar la información correspondiente.</h6></li>
+                        <li class="list-group-item"><h6>4. Esperar la oficializacion por parte de la UPME.</h6></li>
+                    </ul>
+                    <h5>Oprima en siguiente para iniciar</h5>
+                </form>
+                <hr />
+                <nav>
+                    <ul class="pager">
+                        
+                        <li class="next" id="Pgn1Sig"><a href="#">Siguiente <span aria-hidden="true">&rarr;</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div id="FormCPPgn2" class="hide">
+                <button class="btn btn-danger pull-right btn-xs " type="button" onclick="CancelarCrear()">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Inicio
+                </button>
+                <ul class="nav nav-wizard">
+                    <li><a href="#">0</a></li>
+                    <li class="active"><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                </ul>
+                <form style="text-align: center;">
+                    <h5>Ingrese el nombre del municipio al que pertenece la<strong> Subestación</strong></h5>
+                    <div class="input-group custom-search-form">
+                        <input type="text" class="form-control" id="city" placeholder="Nombre Municipio">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" id="BtnBusquedaMun" disabled>
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div><!-- /input-group -->
+                    <br />
+                    <div id="TextValCP">
+                        <h6>Verifique que la Subestación no exista en la lista del panel derecho</h6>
+                        <h5>¿Existe la Subestación?</h5>
+                        <!---input type="checkbox" name="checkCPval" id="checkbox1" checked data-off-text="No" data-on-text="Si"-->
+                        <input type="radio" name="ExisteCP" id="existSi" value="SI"><label for="existSi">SI  -</label>
+                        <input type="radio" name="ExisteCP" id="existNo" value="NO"><label for="existNo">  NO</label>
+                        <!--button type="button" class="btn btn-default" onclick="limpiarFormularioCaptura('');">Normal</!--button-->
+
+                    </div>
+                </form>
+                <hr />
+                <nav>
+                    <ul class="pager">
+                        <li class="previous" id="Pgn2Ant"><a href="#"><span aria-hidden="true">&larr;</span> Anterior</a></li>
+                        <li class="next disabled" id="Pgn2Sig"><a href="#">Siguiente <span aria-hidden="true">&rarr;</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div id="FormCPPgn3" class="hide">
+                <button class="btn btn-danger pull-right btn-xs " type="button" onclick="CancelarCrear()">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Inicio
+                </button>
+                <ul class="nav nav-wizard">
+                    <li><a href="#">0</a></li>
+                    <li><a href="#">1</a></li>
+                    <li class="active"><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                </ul>
+                <form class="form-horizontal" role="form" style="text-align: center;">
+
+                    <h5>Tiene dos opciones para definir la ubicacion del<strong> Subestación</strong>?</h5>
+
+                    <ul class="list-group">
+                        <li class="list-group-item"><h6>1. Ingresar las cordenadas en los campos y en "Ir Ubicacion"</h6></li> 
+                        <li class="list-group-item"><h6>2. Realizar Click el mapa en la ubicacion de la Subestación</h6></li>
+                    </ul>
+                       <div class="col-xs-6">
+                            <label for="InpLongitudCP">Longitud</label>
+                            <input type="text" class="form-control input-sm" id="InpLongitudCP" placeholder="-76.568090" onkeypress="NumDec(event)">
+                        </div>
+                        <div class="col-xs-6">
+                            <label for="InpLatitudCP">Latitud</label>
+                            <input type="text" class="form-control input-sm" id="InpLatitudCP" placeholder="3.411297" onkeypress="NumDecPos(event)">
+                        </div>
+                            <p class="text-success" id="PValidaUbi">__</p>
+                            <button class="btn btn-default" type="button" id="BtnValidacionCoord" onclick="FunValidarUbi()">
+                                <span class="glyphicon glyphicon-map-marker"></span> Ir ubicación.
+                            </button>
+                        
+                </form>
+                <hr />
+                <nav>
+                    <ul class="pager">
+                        <li class="previous" id="Pgn3Ant"><a href="#"><span aria-hidden="true">&larr;</span> Anterior</a></li>
+                        <li class="next disabled" id="Pgn3Sig"><a href="#">Siguiente <span aria-hidden="true">&rarr;</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div id="FormCPPgn4" class="hide">
+                <button class="btn btn-danger pull-right btn-xs " type="button" onclick="CancelarCrear()">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Inicio
+                </button>
+                <ul class="nav nav-wizard">
+                    <li><a href="#">0</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li class="active"><a href="#">3</a></li>
+                </ul>
+                <form  class="dimForm">
+                    <div class="form-group">
+                        <label for="InpNomCP">Nombre SubEstación:</label>
+                        <input type="text" class="form-control" id="InpNomCP" placeholder="" data-container="FormCPPgn4" data-toggle="popover" data-trigger="focus" data-animation="true">
+                    </div>
+                    <div class="form-group">
+                        <label for="SectEstado">Estado:</label>
+                        <select class="form-control" id="SectEstado" data-container="body" data-toggle="popover" data-trigger="focus" data-animation="true">
+                            
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha De Entrada en Operación</label>
+                        <div class="input-group date" >
+                            <input type="text" class=" form-control hasdatepicker" disabled id="dateOperacion" data-container="body" data-toggle="popover" data-trigger="focus" data-animation="true" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="SectNivelTesion">Nivel de Tensión:</label>
+                        <select class="form-control" id="SectNivelTesion" data-container="body" data-toggle="popover" data-trigger="focus" data-animation="true">
+                            
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="SectTensionSub">Relación de Transformación:</label>
+                        <select class="form-control" id="SectTensionSub" disabled data-container="body" data-toggle="popover" data-trigger="focus" data-animation="true">
+                            <option value=""></option>
+
+                        </select>
+                    </div>
+                   
+                    <div class="form-group ">
+                        <label for="InpPorcentajeCarga">Cargabilidad (%):</label>
+                        <input type="text" class="form-control input-sm" id="InpPorcentajeCarga" onkeypress="NumDecPos(event)" maxlength="6" data-container="body" data-toggle="popover" data-trigger="focus" data-animation="true">
+                        <p id="ErrorPorcentajeCarga" class="text-warning"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="InpCapacidadMVA">Capacidad Nominal (MVA):</label>
+                        <input type="text" class="form-control input-sm" id="InpCapacidadMVA" onkeypress="NumDecPos(event)" maxlength="6" data-container="body" data-toggle="popover" data-trigger="focus" data-animation="true">
+                    </div>
+                  
+                    <div class="form-group">
+                        <label for="SectAmpliacion">Posibilidad de Ampliación:</label>
+                        <select class="form-control" id="SectAmpliacion" data-container="body" data-toggle="popover" data-trigger="focus" data-animation="true">
+                            <option value=""></option>
+                            <option value="0">NO</option>
+                            <option value="1">SI</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="InpObservacion">Observación:</label>
+                        <textarea class="form-control" id="InpObservacion" placeholder=""></textarea>
+                    </div>
+                </form>
+                <nav>
+                    <ul class="pager">
+                        <li class="previous" id="Pgn4Ant"><a href="#"><span aria-hidden="true">&larr;</span> Anterior</a></li>
+                        <li class="next" id="Pgn4Sig"><a href="#"><span class="glyphicon glyphicon-ok"></span> Finalizar <span aria-hidden="true">&rarr;</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div id="FormCPPgn5" class="hide">
+                <button class="btn btn-danger pull-right btn-xs " type="button" onclick="CancelarCrear()">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Inicio
+                </button>
+                <center>
+                    <h3><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></h3>
+                    <h4>Subestación creada con exito</h4>
+                    <h5>Por favor espere la oficialización por parte de la UPME para terminar el proceso</h5>
+
+                    <button class="btn btn-success" type="button" id="BtnreiniciarCreacion">
+                        <span class="glyphicon glyphicon-ok"></span> Volver al inicio
+                    </button>
+                </center>
+            </div>
+
+            <div id="FormCPPgn1Eli" class="hide">
+                <button class="btn btn-danger pull-right btn-xs " type="button" onclick="CancelarEliminacion()">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Inicio
+                </button>
+                
+                <ul class="nav nav-tabs" role="tablist" id="myTab">
+                    <li role="presentation"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">En Validación</a></li>
+                    <li role="presentation" class="active"><a href="#Aprobadas" aria-controls="Aprobadas" role="tab" data-toggle="tab">Aprobadas</a></li>
+
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane " id="home">
+
+                        <center>
+                            <h5> <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> Subestaciónes En Validación</h5>
+                        </center>
+                        <div class="input-group custom-search-form">
+                            <input type="search" id="container-search-CPELI" value="" class="form-control" placeholder="Busca el SubEstación...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" id="BtnBusquedaMunEli" disabled>
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                        </div>
+                        <div id="DivListaCpEdit">
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane active" id="Aprobadas">
+                        <center>
+                            <h5> <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> Subestaciónes Aprobadas</h5>
+                        </center>
+                        <div class="input-group custom-search-form">
+                            <input type="search" id="container-search-Apro" value="" class="form-control" placeholder="Busca el SubEstación...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" id="BtnBusquedaMunEli" disabled>
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                        </div>
+                        <div id="DivListaApro">
+                        </div>
+
+                    </div>
+                    </div>
+                </div>
+
+                    <div id="FormCPPgn1Act" class="hide">
+                        <button class="btn btn-danger pull-right btn-xs " type="button" onclick="CancelarAct()">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Inicio
+                        </button>
+                        <center>
+                            <h6>
+                                <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                                Subestaciónes autorizadas a actualizar
+                            </h6>
+                             
+                            
+                        </center>
+                        <div class="input-group custom-search-form">
+                            <input type="search" id="container-search-ACT" value="" class="form-control" placeholder="Busca el SubEstación...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button"  disabled>
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                        </div>
+                        <div id="DivListaAct">
+                        </div>
+
+                    </div>
+                    <div id="FormCPPgn2Actlist" class="hide">
+                        <button class="btn btn-danger pull-right btn-xs " type="button" onclick="CancelarActValid()">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Inicio
+                        </button>
+                        <center>
+                            <h5> <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> Actualización de Subestaciónes en validación por UPME</h5>
+                        </center>
+                        <div class="input-group custom-search-form">
+                            <input type="search" id="container-search-ActSubEst" value="" class="form-control" placeholder="Busca el SubEstación...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" id="BtnBusquedaMunEli" disabled>
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                        </div>
+                        <div id="DivListaActValid">
+                        </div>
+                    </div>
+            <div id="CargaCluster">
+                <hr />
+                <center>
+                    <i class="fa fa-spinner fa-pulse fa-2x  fa-spin"></i> Cargando Agrupaciones de SubEstación
+                </center>
+            </div>
+        </div>       
+    </div>
+</div>
+
+    <div class="col-sm-2 col-md-2" id="panel_subestaciones" style="max-width:350px;min-width:300px;">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Lista De SubEstaciónes </h3>
+            </div>
+            <div class="panel-body">
+                <center>
+                    <h4><small>Municipio: </small><span id="label_municipio"></span></h4>
+                    <h4><small>Departamento: </small><span id="label_departamento"></span></h4>
+                </center>
+                <div class="input-group custom-search-form">
+                    <input type="search" id="container-search" value="" class="form-control" placeholder="Busca el Subestación...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" id="BtnBusquedaMunEli" disabled>
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                </div>
+                <div id="DivListaCp">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="col-sm-2 col-md-2" id="panel_edicion" style="max-width:350px;min-width:340px;">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Editar datos de Subestación.</h3>
+        </div>
+        <div class="panel-body">
+            <form class="dimForm">
+                <div class="form-group">
+                    <label for="EditInpNomCP">Nombre Subestación:</label>
+                    <input type="text" class="form-control" id="EditInpNomCP" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label for="EditSectEstado">Estado:</label>
+                    <select class="form-control" id="EditSectEstado">
+                        
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Fecha De Entrada en Operación</label>
+                    <div class="input-group date">
+                        <input type="text" class="form-control" id="EditdateOperacion" data-container="body" data-placement="left" data-toggle="popover" data-trigger="focus" data-animation="true" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="EditSectNivelTesion">Nivel de Tensión:</label>
+                    <select class="form-control" id="EditSectNivelTesion" data-placement="left" data-toggle="popover" data-trigger="focus" data-animation="true">
+                        
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="EditSectTensionSub">Relación de Transformación:</label>
+                    <select class="form-control" id="EditSectTensionSub">
+                        <option value=""></option>
+                    </select>
+                </div>
+
+                <div class="form-group ">
+                    <label for="EditInpPorcentajeCarga">Cargabilidad (%):</label>
+                    <input type="text" class="form-control input-sm" id="EditInpPorcentajeCarga" onkeypress="NumDecPos(event)" maxlength="6" data-placement="left" data-toggle="popover" data-trigger="focus" data-animation="true">
+                    <p id="EditErrorPorcentajeCarga" class="text-warning"></p>
+                </div>
+                <div class="form-group">
+                    <label for="EditInpCapacidadMVA">Capacidad Nominal (MVA):</label>
+                    <input type="text" class="form-control input-sm" id="EditInpCapacidadMVA" onkeypress="NumDecPos(event)" maxlength="6">
+                </div>
+
+                <div class="form-group">
+                    <label for="EditSectAmpliacion">Posibilidad de Ampliación:</label>
+                    <select class="form-control" id="EditSectAmpliacion">
+                        <option value=""></option>
+                        <option value="0">NO</option>
+                        <option value="1">SI</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="EditInpObservacion">Observación:</label>
+                    <textarea class="form-control" id="EditInpObservacion" placeholder=""></textarea>
+                </div>
+            </form>
+            <button class="btn btn-info pull-right " type="button" onclick="SaveFeature()">
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Guardar
+            </button>
+            <button class="btn btn-danger pull-left " type="button" onclick="CancelEditFeature()">
+                <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Cancelar
+            </button>
+        </div>
+    </div>
+</div>
+
+    <div class="col-sm-2 col-md-2" id="panel_actualizar" style="max-width:350px;min-width:340px;">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Actualización Datos de SubEstaciones.</h3>
+            </div>
+            <div class="panel-body">
+                <form class="dimForm">
+                    <div class="form-group">
+                        <label for="ActInpNomCP">Nombre SubEstación:</label>
+                        <input type="text" class="form-control" id="ActInpNomCP" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="ActSectEstado">Estado:</label>
+                        <select class="form-control" id="ActSectEstado">
+                            
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha De Entrada en Operación</label>
+                        <div class="input-group date">
+                            <input type="text" class="form-control" id="ActdateOperacion" data-container="body" data-placement="left" data-toggle="popover" data-trigger="focus" data-animation="true" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ActSectNivelTesion">Nivel de Tensión:</label>
+                        <select class="form-control" id="ActSectNivelTesion" data-placement="left" data-toggle="popover" data-trigger="focus" data-animation="true">
+                            
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="ActSectTensionSub">Relación de Transformación:</label>
+                        <select class="form-control" id="ActSectTensionSub">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                    <div class="form-group ">
+                        <label for="ActInpPorcentajeCarga">Cargabilidad (%):</label>
+                        <input type="text" class="form-control input-sm" id="ActInpPorcentajeCarga" onkeypress="NumDecPos(event)" maxlength="6" data-placement="left" data-toggle="popover" data-trigger="focus" data-animation="true">
+                        <p id="ActErrorPorcentajeCarga" class="text-warning"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="ActInpCapacidadMVA">Capacidad Nominal (MVA):</label>
+                        <input type="text" class="form-control input-sm" id="ActInpCapacidadMVA" onkeypress="NumDecPos(event)" maxlength="6">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ActSectAmpliacion">Posibilidad de Ampliación:</label>
+                        <select class="form-control" id="ActSectAmpliacion">
+                            <option value=""></option>
+                            <option value="0">NO</option>
+                            <option value="1">SI</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ActInpObservacion">Observación:</label>
+                        <textarea class="form-control" id="ActInpObservacion" placeholder=""></textarea>
+                    </div>
+                </form>
+                
+                <button class="btn btn-info pull-right " type="button" onclick="SaveFeatureAct()">
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Guardar
+                </button>
+                <button class="btn btn-danger pull-left " type="button" onclick="CancelActFeature()">
+                    <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+<div id="carousel-panel-generic" style="width:230px">
+            <div id="myCarousel" class="carousel slide">
+                <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                </ol>
+                <!-- Carousel items -->
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <div class="row-fluid">
+                            <div class="col-sm-6 col-md-6" id="BaseESRIStreets" value="Streets">
+                                <a href="#" class="thumbnail">
+                                    <img src="~/images/baselayers/calles.PNG" style="max-width:100%;">
+                                    <div class="carousel-caption"><center><h6>ESRI Streets</h6></center></div>
+                                </a>
+                            </div>
+                            <div class="col-sm-6 col-md-6" id="BaseESRISatellite" value="Imagery">
+                                <a href="#" class="thumbnail">
+                                    <img src="~/images/baselayers/satelite.PNG" style="max-width:100%;">
+                                    <div class="carousel-caption"><center><h6 style="color:rgba(255, 255, 255,1)">ESRI Satelite</h6></center></div>
+                                </a>
+                            </div>
+                        </div><!--/row-fluid-->
+                    </div><!--/item-->
+                    <div class="item">
+                        <div class="row-fluid">
+                            <div class="col-sm-6 col-md-6" id="BaseESRITopo" value="Topographic">
+                                <a href="#" class="thumbnail">
+                                    <img src="~/images/baselayers/topografic.PNG" style="max-width:100%;">
+                                    <div class="carousel-caption"><center><h6>ESRI Topographic</h6></center></div>
+                                </a>
+                            </div>
+                            <div class="col-sm-6 col-md-6" id="BaseOSM" value="OSM">
+                                <a href="#" class="thumbnail">
+                                    <img src="~/images/baselayers/OSM.PNG" style="max-width:100%;">
+                                    <div class="carousel-caption"><center><h6>OSM</h6></center></div>
+                                </a>
+                            </div>
+
+                        </div><!--/row-fluid-->
+                    </div><!--/item-->
+                </div><!--/carousel-inner-->
+
+                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+            </div><!--/myCarousel-->
+        </div>
+        <div class='mouse-position'>
+            <b id='mousemove'><b />
+        </div>
+        @Scripts.Render("~/bundles/appMapGlobal")
+        @Scripts.Render("~/bundles/appMap")
+
+}
+else
+{
+<script>
+        var direccion='@Url.Action("Login", "Account")';
+        location.href = direccion;
+</script>
+
+}
