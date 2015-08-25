@@ -361,9 +361,6 @@
       <LastGenOutput>ModelUsr2.cs</LastGenOutput>
     </Content>
     <None Include="Properties\PublishProfiles\UPME.pubxml" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -464,7 +461,7 @@
     <Content Include="Scripts\libs\Control.Loading\Control.Loading.css" />
     <Content Include="Scripts\libs\Control.Loading\Control.Loading.js" />
     <Content Include="Scripts\libs\turfjs\turf.min.js" />
-    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\libs\waitingDialog\waitingDialog.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -484,7 +481,6 @@
     <Content Include="Views\Home\Validar.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />

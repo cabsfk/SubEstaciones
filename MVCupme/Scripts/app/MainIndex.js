@@ -233,6 +233,11 @@ $("#cityVV").autocomplete({
     close: function () {
         $(this).removeClass("ui-corner-top").addClass("ui-corner-all");
     }
+}).keypress(function (e) {
+    if (e.keyCode === 13) {
+        e.preventDefault();
+        return false;
+    }
 }).autocomplete("instance")._renderItem = function (ul, item) {
     ul.addClass("list-group");
     ul.addClass("Ancho");
@@ -276,6 +281,11 @@ $("#city").autocomplete({
     },
     close: function () {
         $(this).removeClass("ui-corner-top").addClass("ui-corner-all");
+    }
+}).keypress(function (e) {
+    if (e.keyCode === 13) {
+        e.preventDefault();
+        return false;
     }
 }).autocomplete("instance")._renderItem = function (ul, item) {
     ul.addClass("list-group");
@@ -814,7 +824,7 @@ function ActualizarViviendas(ID_CENTRO_POBLADO) {
                         JSONVV.type = new Object();
                         JSONVV.type = "Feature";
                         console.log(JSONVV);
-
+                        //waitingDialog.show();
                         lyrCentrosPobladosVV_t.addFeature(JSONVV, function (error, featureCollectionVV) {
                             //console.log()
                             if (featureCollectionVV.success == true) {
@@ -1219,7 +1229,7 @@ function MapearCentroPobladoTotal() {
 
         var CP, htmlpopup, clase;
         
-        $("#CargaCluster").hide(100);
+        waitingDialog.hide();
         lyrTotalCentrosPoblados = L.geoJson(featureCollection, {
             pointToLayer: function (feature, latlng) {
                 var clase, estilo,tipo;

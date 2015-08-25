@@ -247,7 +247,7 @@ function MapearSubEstacionTotal() {
 
         var CP, htmlpopup, clase;
         
-        $("#CargaCluster").hide(100);
+        waitingDialog.hide();
         lyrTotalSubEstaciones = L.geoJson(featureCollection, {
             pointToLayer: function (feature, latlng) {
                 var clase, estilo, tipo;
@@ -319,6 +319,11 @@ $("#city").autocomplete({
     },
     close: function () {
         $(this).removeClass("ui-corner-top").addClass("ui-corner-all");
+    }
+}).keypress(function (e) {
+    if (e.keyCode === 13) {
+        e.preventDefault();
+        return false;
     }
 }).autocomplete("instance")._renderItem = function (ul, item) {
     ul.addClass("list-group");

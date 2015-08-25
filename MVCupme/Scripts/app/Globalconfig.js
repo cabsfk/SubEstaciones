@@ -1,6 +1,16 @@
 ﻿
 var dominio = "http://arcgis.simec.gov.co:6080"; //Dominio del arcgis server  http://localhost:6080
 
+
+//Servicio de Edicion de Arcgis
+var urlHostSUEdit = "/arcgis/rest/services/APP_SUBESTACIONES/UPME_EN_DI_SUBESTACION_CRUD/";
+//Servicio de Consulta de Arcgis
+var urlHostSUCons = "/arcgis/rest/services/APP_SUBESTACIONES/UPME_EN_DI_SUBESTACION_QUERY/";
+//Servicio de Divicion politica de Arcgis
+var urlHostDP = "/arcgis/rest/services/UPME_BC/UPME_BC_Sitios_UPME_Division_Politica/";
+
+
+
 var buffetCP = 300;
 var id_user = idUsuario;
 var id_user_validacion = idUsuario;
@@ -10,27 +20,17 @@ if (idUsuario != "") {
     $.getJSON("../../SubEstaciones/Home/UsrOrgJson?idusuario=" + idUsuario, function (data) {
         UsrOrgJson = data;
         $("#tituloOrganizacion").empty().append(UsrOrgJson[0].organizacion);
-        console.log("UsrOrgJson");
-        console.log(UsrOrgJson);
-
-    })
+    });
 }
 
 
-
-//Servicio de Edicion de Arcgis
-var urlHostSUEdit = "/arcgis/rest/services/APP_SUBESTACION/UPME_EN_DI_SUBESTACION_CRUD/";
-//Servicio de Consulta de Arcgis
-var urlHostSUCons = "/arcgis/rest/services/APP_SUBESTACION/UPME_EN_DI_SUBESTACION_QUERY/";
-//Servicio de Divicion politica de Arcgis
-var urlHostDP = "/arcgis/rest/services/UPME_BC/UPME_BC_Sitios_UPME_Division_Politica/";
 
 var geojsonMarkerSinAprobar = { icon: L.AwesomeMarkers.icon({ icon: 'home', prefix: 'fa', markerColor: 'orange' }), riseOnHover: true };
 var geojsonMarkerSubEstacion = { icon: L.AwesomeMarkers.icon({ icon: 'bolt', prefix: 'fa', markerColor: 'cadetblue' }), riseOnHover: true };
 var geojsonMarkerSubEstacionEdit = { icon: L.AwesomeMarkers.icon({ icon: 'bolt', prefix: 'fa', markerColor: 'orange' }), riseOnHover: true };
 
 var arrayclases = [], arrayTension = [];
-
+waitingDialog.show();
 
 
 /***********************************
@@ -55,21 +55,24 @@ new L.Control.Zoom({ position: 'topright' }).addTo(map);
 **********************************/
 var legend = L.control({ position: 'bottomright' });
 var pagina = document.URL.split("/");
-var Nombrepagina = pagina[pagina.length - 1];
+var Nombrepagina = pagina[3];
+
 Nombrepagina = Nombrepagina.replace("#", "");
 var prefijo = "";
 if (Nombrepagina == "") {
-    prefijo = "./";
+    prefijo = "/"+Nombrepagina+"/";
 }else{
-    prefijo = "../";
+    prefijo = "/" + Nombrepagina + "/";
 }
 
 
 legend.onAdd = function (map) {
     var div = L.DomUtil.create('div', 'info legend');
+    if (pagina.length > 5) {
+        div.innerHTML += '<i ><img src="' + prefijo + 'images/leyend/SinAprobar.png" height="20px"></i> SubEstacion No Oficial<br>';
+        div.innerHTML += '<i ><img src="' + prefijo + 'images/leyend/Creacion.png" height="20px"></i> SubEstacion En Creación<br>';
+    }
     div.innerHTML += '<i ><img src="' + prefijo + 'images/leyend/Upme.png"  height="20px"></i>SubEstacion<br>';
-    div.innerHTML += '<i ><img src="' + prefijo + 'images/leyend/SinAprobar.png" height="20px"></i> SubEstacion No Oficial<br>';
-    div.innerHTML += '<i ><img src="' + prefijo + 'images/leyend/Creacion.png" height="20px"></i> SubEstacion En Creación<br>';
     div.innerHTML += '<i ><img src="' + prefijo + 'images/leyend/Cluster.png" height="18px"></i> Agrupaciones<br>';
     div.innerHTML += '<i ><img src="' + prefijo + 'images/leyend/municipio.png"  height="17px"></i>Municipio<br>';
     div.innerHTML += '<i ><img src="' + prefijo + 'images/leyend/municipioSelecionado.png"  height="17px"></i>Municipio Seleccionado<br>';
@@ -89,10 +92,11 @@ $('.carousel').carousel({
     interval: 7000
 });
 
-var OpenMapSurfer_Roads = L.tileLayer('http://openmapsurfer.uni-hd.de/tiles/roads/x={x}&y={y}&z={z}', {
-    minZoom: 0,
-    maxZoom: 20,
-    attribution: 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+var OpenMapSurfer_Roads = L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/{type}/{z}/{x}/{y}.{ext}', {
+    type: 'map',
+    ext: 'jpg',
+    attribution: 'Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    subdomains: '1234'
 });
 
 var LyrBase = L.esri.basemapLayer('Imagery').addTo(map);;
@@ -119,18 +123,16 @@ $("#BaseESRIStreets, #BaseESRISatellite, #BaseESRITopo, #BaseOSM").click(functio
 $(".esri-leaflet-logo").hide();
 $(".leaflet-control-attribution").hide();
 
-var osm2 = L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
-    minZoom: 2,
-    maxZoom: 18,
-    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-        'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-    id: 'examples.map-i875mjb7'
+var osm2 = L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/{type}/{z}/{x}/{y}.{ext}', {
+    type: 'map',
+    ext: 'jpg',
+    attribution: 'Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    subdomains: '1234'
 });
 
 var miniMap = new L.Control.MiniMap(osm2, { toggleDisplay: true, width: 190, height: 90, zoomLevelOffset: -6 });
 
 miniMap._minimized;
-console.log(miniMap);
 miniMap.addTo(map);
 
 var promptIcon = ['glyphicon-fullscreen'];
@@ -295,7 +297,7 @@ function isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 }
 function ContPopUP(feature, latlng, botones) {
-    console.log(feature.properties)
+   // console.log(feature.properties)
     var NIVEL_TENSION = (feature.properties.ID_NIVEL_TENSION == "Null") ? '-' : feature.properties.ID_NIVEL_TENSION;
     var TENSION = (feature.properties.ID_TENSION_SUB == "Null") ? 0 : (feature.properties.ID_TENSION_SUB.length > 2) ? feature.properties.ID_TENSION_SUB : arrayTension[feature.properties.ID_TENSION_SUB];
     var PORCENTAJE_CARGA = (isNumeric(feature.properties.PORCENTAJE_CARGA)) ? Number(feature.properties.PORCENTAJE_CARGA).toFixed(2) : Number(feature.properties.PORCENTAJE_CARGA.replace(",", ".")).toFixed(2);

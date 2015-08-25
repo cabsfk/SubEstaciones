@@ -149,7 +149,7 @@ function AprobarActualizacion(id) {
         data: {
             'callback': function (result) {
                 if (result) {
-
+                    waitingDialog.show();
                     SubEstacionValidQuery_T.featureIds(id).where("").run(function (error, featureCollectionFind, response2) {
                         featureCollectionFind.features[0].properties.ACTIVO = 0;
                         featureCollectionFind.features[0].properties.ID_USUARIO_VALIDA = id_user;
@@ -221,6 +221,7 @@ function RechazarActualizacion(id) {
         data: {
             'callback': function (result) {
                 if (result) {
+                    waitingDialog.show();
                     SubEstacionValidQuery_T.featureIds(id).where("").run(function (error, featureCollectionFind, response2) {
                         featureCollectionFind.features[0].properties.ACTIVO = 2;
                         featureCollectionFind.features[0].properties.ID_USUARIO_VALIDA = id_user;
@@ -347,7 +348,7 @@ function AprobarCreacion(id) {
         data: {
             'callback': function (result) {
                 if (result) {
-                    
+                    waitingDialog.show();
                     SubEstacionValidQuery_T.featureIds(id).where("").run(function (error, featureCollectionFind, response2) {
                         featureCollectionFind.features[0].properties.ACTIVO = 0;
                         featureCollectionFind.features[0].properties.ID_USUARIO_VALIDA = id_user;
@@ -412,7 +413,7 @@ function RechazarCreacion(id) {
         data: {
             'callback': function (result) {
                 if (result) {
-                    
+                    waitingDialog.show();
                     SubEstacionValidQuery_T.featureIds(id).where("").run(function (error, featureCollectionFind, response2) {
                         featureCollectionFind.features[0].properties.ACTIVO = 2;
                         featureCollectionFind.features[0].properties.ID_USUARIO_VALIDA = id_user;
@@ -480,7 +481,7 @@ function MapearSubEstacionTotal() {
     SubEstacionFind.text('1').fields('ACTIVO');
     SubEstacionFind.run(function (error, featureCollection, response2) {
         var CP, htmlpopup, clase;
-        $("#CargaCluster").hide(100);
+        waitingDialog.hide();
         lyrTotalSubEstaciones = L.geoJson(featureCollection, {
             pointToLayer: function (feature, latlng) {
                 var clase, estilo, tipo;

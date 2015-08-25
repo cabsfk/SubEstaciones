@@ -31,7 +31,8 @@ namespace MVCupme
                       "~/Scripts/libs/growl/bootstrap-growl.min.js",
                       "~/Scripts/libs/BootstrapDialog/js/bootstrap-dialog.min.js",
                       "~/Scripts/libs/datetimepicker/build/js/bootstrap-datetimepicker.es.js",
-                      "~/Scripts/libs/datetimepicker/build/js/bootstrap-datetimepicker.min.js"
+                      "~/Scripts/libs/datetimepicker/build/js/bootstrap-datetimepicker.min.js",
+                      "~/Scripts/libs/waitingDialog/waitingDialog.js"
                       ));
 
             bundles.Add(new ScriptBundle("~/bundles/leaflet").Include(
