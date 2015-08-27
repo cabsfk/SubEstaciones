@@ -136,7 +136,7 @@ miniMap._minimized;
 miniMap.addTo(map);
 
 var promptIcon = ['glyphicon-fullscreen'];
-var hoverText = ['Extencion Total'];
+var hoverText = ['Extensión Total'];
 var functions = [function () {
     map.setView([4.12521648, -74.5020], 5);
 }];

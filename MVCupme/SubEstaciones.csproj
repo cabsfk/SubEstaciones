@@ -258,6 +258,7 @@
     <Content Include="images\leyend\SinAprobar.png" />
     <Content Include="images\leyend\Upme.png" />
     <Content Include="images\leyend\zonaRestriccion.png" />
+    <Content Include="images\loading.gif" />
     <Content Include="images\logo UPME.png" />
     <Content Include="images\logo.png" />
     <Content Include="images\portfolio\thumb\en_infraestructura.jpg" />
