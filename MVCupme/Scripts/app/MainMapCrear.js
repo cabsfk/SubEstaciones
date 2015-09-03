@@ -23,13 +23,17 @@ function onMapClick(e) {
 
 function FunValidarUbi() {
     if ($("#InpLongitudCP").val() != "" || $("#InpLatitudCP").val() != "") {
-        var point = turf.point([$("#InpLongitudCP").val(), $("#InpLatitudCP").val()]);
+        var latg = $("#InpLatitudCP").val();
+        var long = $("#InpLongitudCP").val();
+        var latlongflo = [parseFloat(latg.replace(",", ".")), parseFloat(long.replace(",", "."))];
+
+        var point = turf.point([latlongflo[1], latlongflo[0]]);
         //console.log('Inside: ' + turf.inside(point, FeatureMunicipio));
         if (map.hasLayer(FeatureSubEstacion)) {
             map.removeLayer(FeatureSubEstacion);
         }
-
-        FeatureSubEstacion = new L.Marker([$("#InpLatitudCP").val(), $("#InpLongitudCP").val()], { icon: L.AwesomeMarkers.icon({ icon: 'bolt', prefix: 'fa', markerColor: 'red' }) });
+       
+        FeatureSubEstacion = new L.Marker(latlongflo, { icon: L.AwesomeMarkers.icon({ icon: 'bolt', prefix: 'fa', markerColor: 'red' }) });
         map.addLayer(FeatureSubEstacion);
         map.panTo(FeatureSubEstacion.getLatLng());
 
