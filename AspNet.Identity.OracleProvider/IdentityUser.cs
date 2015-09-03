@@ -62,7 +62,7 @@ namespace AspNet.Identity.OracleProvider
 
         public bool Estado { get; set; }
 
-        public long ID_ORGANIZACION { get; set; }
+        public Nullable<long> ID_ORGANIZACION { get; set; }
 
         public virtual bool LockoutEnabled { get; set; }
 

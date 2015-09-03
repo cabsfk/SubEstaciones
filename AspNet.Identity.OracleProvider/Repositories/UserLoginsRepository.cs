@@ -86,7 +86,8 @@ namespace AspNet.Identity.OracleProvider.Repositories
                "SELECT * FROM userlogins WHERE userid = :userid",
                new OracleParameter { ParameterName = ":userid", Value = userId, OracleDbType = OracleDbType.Varchar2, Direction = ParameterDirection.Input });
 
-            return result.Rows.Cast<DataRow>().Select(row => new UserLoginInfo(row["loginprovider"].ToString(), row["providerkey"].ToString())).ToList();
+            return result.Rows.Cast<DataRow>().Select(row => new UserLoginInfo(row["loginprovider"].ToString(), row["providerkey"].ToString())).ToList(); 
+            
         }
     }
 }
