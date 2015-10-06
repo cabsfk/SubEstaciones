@@ -9,8 +9,13 @@ var turfCPDane, turfCPDanemerge, turfCPCircles;
 /***************************************
 //Definicion de Busquedas
 ***************************************/
-var LyrCentrosPoblados = L.esri.featureLayer(dominio + urlHostSUEdit + 'FeatureServer/0');
-var LyrCentrosPoblados_T = L.esri.featureLayer(dominio + urlHostSUEdit + 'FeatureServer/1');
+var LyrCentrosPoblados = L.esri.featureLayer({
+    url: dominio + urlHostSUEdit + 'FeatureServer/0'
+});
+var LyrCentrosPoblados_T = L.esri.featureLayer({
+    url: dominio + urlHostSUEdit + 'FeatureServer/1',
+    cacheLayers:false
+}).addTo(map);
 
 var ServiceDaneFind = L.esri.Tasks.find({
     url: dominio + urlHostDP + 'MapServer'
@@ -29,7 +34,9 @@ var CentrosPobladoActFind = L.esri.Tasks.find({
 var CentrosPobladoEditQuery = L.esri.Tasks.query({
     url: dominio + urlHostSUEdit + 'FeatureServer/1'
 });
-var lyrCentrosPobladosVV_t = L.esri.featureLayer(dominio + urlHostSUEdit + 'FeatureServer/3');
+var lyrCentrosPobladosVV_t = L.esri.featureLayer({
+    url: dominio + urlHostSUEdit + 'FeatureServer/3'
+});
 
 //*****************************************************************
 
@@ -402,7 +409,7 @@ function CrearCentroPoblado(UbiCP) {
         data: {
             'callback': function (result) {
                 if (result) {
-                    LyrCentrosPoblados_T.addFeature(UbiCP, function (error, featureCollection, response2) {
+                    LyrCentrosPoblados_T.addFeature(UbiCP, function (error, featureCollection) {
                         //console.log(featureCollection);
                         if (featureCollection.success == true) {
                             msj_exito("Se CREO el centro poblado exitosamente!");
@@ -624,21 +631,21 @@ function BorrarCentroPoblado(id) {
         message: '¿Esta Seguro de eliminar el Centro Poblado?',
         closable: false,
         data: {
-            'callback': function (result) {
-                            if (result) {
-                                LyrCentrosPoblados_T.deleteFeature(id, function (error, featureCollection, response2) {
-                                    //console.log(featureCollection);
-                                    if (featureCollection.success == true) {
-                                        MapearCentroPobladoEli();
-                                        msj_exito("Se ELIMINO el centro poblado exitosamente!");
-                                        return true;
-                                    } else {
-                                        msj_peligro("NO SE REALIZO LA CREACION CON EXITO, REVISE EL SERVIDOR DE MAPAS !");
-                                        return false;
-                                    }
-                                });
-                            }
+          'callback': function (result) {
+            if (result) {
+                    LyrCentrosPoblados_T.deleteFeature(id, function (error, featureCollection, response2) {
+                        //console.log(featureCollection);
+                        if (featureCollection.success == true) {
+                            MapearCentroPobladoEli();
+                            msj_exito("Se ELIMINO el centro poblado exitosamente!");
+                            return true;
+                        } else {
+                            msj_peligro("NO SE REALIZO LA CREACION CON EXITO, REVISE EL SERVIDOR DE MAPAS !");
+                            return false;
                         }
+                    });
+                }
+            }
         },
         buttons: [{
             label: 'Cancelar',

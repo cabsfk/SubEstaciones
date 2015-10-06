@@ -8,19 +8,27 @@ var urlHostSUEdit = "/arcgis/rest/services/APP_SUBESTACIONES/UPME_EN_DI_SUBESTAC
 var urlHostSUCons = "/arcgis/rest/services/APP_SUBESTACIONES/UPME_EN_DI_SUBESTACION_QUERY/";
 //Servicio de Divicion politica de Arcgis
 var urlHostDP = "/arcgis/rest/services/UPME_BC/UPME_BC_Sitios_UPME_Division_Politica/";
-
+var notaAclaratoria = 'La UPME se permite disponer esta herramienta para la recolección de la información correspondiente a la ubicación geográfica de las subestaciones.Esta herramienta es una ayuda para que los operadores reporten información, produciéndose una capa propia de la UPME quien validará con otras fuentes la ubicación espacial de las localidades, para conseguir mayor calidad en la información para el Planeamiento de la Expansión de Cobertura de Energía Eléctrica.';
 
 
 var buffetCP = 300;
 var id_user = idUsuario;
 var id_user_validacion = idUsuario;
 var  UsrOrgJson = "";
+console.log(idUsuario);
+
+
+var pagina = document.URL.split("/");
+var prefijo = pagina[0] + '/' + pagina[1] + '/' + pagina[2] + '/' + pagina[3] + '/';
+
 
 if (idUsuario != "") {
     $.getJSON("../../SubEstaciones/Home/UsrOrgJson?idusuario=" + idUsuario, function (data) {
         UsrOrgJson = data;
         $("#tituloOrganizacion").empty().append(UsrOrgJson[0].organizacion);
     });
+} else {
+    location.href = prefijo;
 }
 
 
@@ -54,16 +62,7 @@ new L.Control.Zoom({ position: 'topright' }).addTo(map);
 //CONFIGURACION DE FORMATO
 **********************************/
 var legend = L.control({ position: 'bottomright' });
-var pagina = document.URL.split("/");
-var Nombrepagina = pagina[3];
 
-Nombrepagina = Nombrepagina.replace("#", "");
-var prefijo = "";
-if (Nombrepagina == "") {
-    prefijo = "/"+Nombrepagina+"/";
-}else{
-    prefijo = "/" + Nombrepagina + "/";
-}
 
 
 legend.onAdd = function (map) {
@@ -92,6 +91,7 @@ $('.carousel').carousel({
     interval: 7000
 });
 
+
 var OpenMapSurfer_Roads = L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/{type}/{z}/{x}/{y}.{ext}', {
     type: 'map',
     ext: 'jpg',
@@ -99,26 +99,33 @@ var OpenMapSurfer_Roads = L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/{ty
     subdomains: '1234'
 });
 
-var LyrBase = L.esri.basemapLayer('Imagery').addTo(map);;
-var LyrLabels;
+var LyrBase = L.esri.basemapLayer('Imagery').addTo(map);
+var LyrLabels = L.esri.basemapLayer('ImageryLabels').addTo(map);
 
 function setBasemap(basemap) {
     if (map.hasLayer(LyrBase)) {
         map.removeLayer(LyrBase);
     }
-    if (basemap != "OSM") {
-        LyrBase = L.esri.basemapLayer(basemap);
-    } else {
+    if (basemap == "OSM") {
         LyrBase = OpenMapSurfer_Roads;
     }
+    else {
+        LyrBase = L.esri.basemapLayer(basemap);
+    }
     map.addLayer(LyrBase);
-    $(".esri-leaflet-logo").hide();
-    $(".leaflet-control-attribution").hide();
-}
+    if (map.hasLayer(LyrLabels)) {
+        map.removeLayer(LyrLabels);
+    }
+
+    if (basemap === 'ShadedRelief' || basemap === 'Oceans' || basemap === 'Gray' || basemap === 'DarkGray' || basemap === 'Imagery' || basemap === 'Terrain') {
+        LyrLabels = L.esri.basemapLayer(basemap + 'Labels');
+        map.addLayer(LyrLabels);
+    }
+};
 
 $("#BaseESRIStreets, #BaseESRISatellite, #BaseESRITopo, #BaseOSM").click(function () {
     setBasemap($(this).attr('value'));
-})
+});
 
 $(".esri-leaflet-logo").hide();
 $(".leaflet-control-attribution").hide();
@@ -130,10 +137,10 @@ var osm2 = L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/{type}/{z}/{x}/{y}
     subdomains: '1234'
 });
 
-var miniMap = new L.Control.MiniMap(osm2, { toggleDisplay: true, width: 190, height: 90, zoomLevelOffset: -6 });
+/*var miniMap = new L.Control.MiniMap(osm2, { toggleDisplay: true, width: 190, height: 90, zoomLevelOffset: -6 });
 
 miniMap._minimized;
-miniMap.addTo(map);
+miniMap.addTo(map);*/
 
 var promptIcon = ['glyphicon-fullscreen'];
 var hoverText = ['Extensión Total'];
@@ -151,7 +158,8 @@ $(function () {
         L.easyButton(promptIcon[i], functions[i], hoverText[i])
     } (i);
 });
-var MapLayerLimitesDane = L.esri.dynamicMapLayer(dominio +urlHostDP+ 'MapServer', {
+var MapLayerLimitesDane = L.esri.dynamicMapLayer({
+    url: dominio + urlHostDP + 'MapServer',
     layers: [2, 3]
 }).addTo(map);
 
@@ -287,7 +295,7 @@ function zoomCP(x, y) {
 var mousemove = document.getElementById('mousemove');
 
 map.on('mousemove', function (e) {
-    window[e.type].innerHTML = 'LON:'+e.latlng.lng.toFixed(6) + '   LAT:' + e.latlng.lat.toFixed(6);
+    window[e.type].innerHTML = 'Long:' + e.latlng.lng.toFixed(6) + '   Lat:' + e.latlng.lat.toFixed(6);
 });
 
 /****************************************

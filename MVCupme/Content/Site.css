@@ -27,26 +27,17 @@ textarea {
 
 
 #panel_formulario {
-  position: absolute;
-  top: 53px;
-  left: -10px;
-  background: rgba(255, 255, 255, 0.1);
-  
-}
+    position: absolute;
+    top: 50px;
+    left: 0px;
+    background: rgba(255, 255, 255, 0.1);
+ }
 
 #panel_subestaciones {
     position: absolute;
-    top: 55px;
+    top: 52px;
     right: 30px;
     background: rgba(255, 255, 255, 0.1);
-      z-index: 1001;
-}
-#panel_actualizar {
-    position: absolute;
-    top: 55px;
-    right: 30px;
-    background: rgba(255, 255, 255, 0.1);
-    z-index: 1001;
 }
 
 .hide {
@@ -115,7 +106,6 @@ textarea {
 .popupstyle {
     padding: 5px;
     min-width:200px;
-    margin-bottom: 3px;
 }
 
 .panel-primary>.panel-heading {
@@ -158,19 +148,15 @@ textarea {
 }
 #carousel-panel-generic{
     position: absolute;
-    bottom: 15px;
+    bottom: 20px;
     left: 5px;
     z-index: 1;
 }
-
-.carousel-indicators {
-  bottom: 0px;
-}
 .leaflet-right .leaflet-control {
-    margin-right: 4px;
+    margin-right: 2px;
 }
 .leaflet-bottom .leaflet-control {
-    margin-bottom: 4px;
+    margin-bottom: 2px;
 }
 .legend {
     line-height: 20px !important;
@@ -362,56 +348,57 @@ border-bottom-left-radius: 3px;
 
 #panel_edicion {
     position: absolute;
-    top: 55px;
-    right: 30px;
+    top: 50px;
+    right: 35px;
     background: rgba(255, 255, 255, 0.1);
-    z-index:1001;
+}
+h4, .h4, h5, .h5, h6, .h6 {
+  margin-top: 2px;
+  margin-bottom: 2px;
 }
 
 .clearfix:hover {
     background-color: #E6E6E6;
 }
-h4, .h4, h5, .h5, h6, .h6 {
-  margin-top: 5px;
-  margin-bottom: 2px;
+.modal-backdrop.in {
+    filter: alpha(opacity=50);
+    opacity: 0.5;
 }
 
-.dimForm{
-    max-height:440px;
-    overflow:scroll;
-    overflow-x: hidden;
+.modal-backdrop {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    background-color: rgba(255,255,255,1);
 }
-
-.hasDatepicker {
-    position: relative;
-    z-index: 9999;
-}
-.dropdown-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  z-index: 2000;
-  display: none;
-  float: left;
-  min-width: 160px;
-  padding: 5px 0;
-  margin: 2px 0 0;
-  font-size: 14px;
-  text-align: left;
-  list-style: none;
-  background-color: #fff;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-  border: 1px solid #ccc;
-  border: 1px solid rgba(0,0,0,.15);
-  border-radius: 4px;
-  -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
-  box-shadow: 0 6px 12px rgba(0,0,0,.175);
-}
-
 .displayed {
     display: block;
     margin-left: auto;
     margin-right: auto 
 
+}
+.mouse-position>.panel-body {
+    padding: 1px;
+}
+
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus {
+    color: #2C3E50;
+    font-size: medium;
+    font-weight:bold;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    padding-top: 5px;
+    padding-bottom: 7px;
+    border-radius: 4px;
+    font-size: medium;
+    font-weight: bold;
+}
+.navbar-inverse .navbar-nav>li>a {
+    color: #2C3E50;
+}
+
+.IconManual{
+    padding-top:7px;
 }

@@ -82,13 +82,13 @@
                             <div class="col-sm-6 col-md-6" id="BaseESRIStreets" value="Streets">
                                 <a href="#" class="thumbnail">
                                     <img src="~/images/baselayers/calles.PNG" style="max-width:100%;">
-                                    <div class="carousel-caption"><center><h6>ESRI Streets</h6></center></div>
+                                    <div class="carousel-caption"><center><h6>Calles</h6></center></div>
                                 </a>
                             </div>
                             <div class="col-sm-6 col-md-6" id="BaseESRISatellite" value="Imagery">
                                 <a href="#" class="thumbnail">
                                     <img src="~/images/baselayers/satelite.PNG" style="max-width:100%;">
-                                    <div class="carousel-caption"><center><h6 style="color:rgba(255, 255, 255,1)">ESRI Satelite</h6></center></div>
+                                    <div class="carousel-caption"><center><h6 style="color:rgba(255, 255, 255,1)">Satelite</h6></center></div>
                                 </a>
                             </div>
                         </div><!--/row-fluid-->
@@ -98,7 +98,7 @@
                             <div class="col-sm-6 col-md-6" id="BaseESRITopo" value="Topographic">
                                 <a href="#" class="thumbnail">
                                     <img src="~/images/baselayers/topografic.PNG" style="max-width:100%;">
-                                    <div class="carousel-caption"><center><h6>ESRI Topographic</h6></center></div>
+                                    <div class="carousel-caption"><center><h6>Topografico</h6></center></div>
                                 </a>
                             </div>
                             <div class="col-sm-6 col-md-6" id="BaseOSM" value="OSM">
@@ -120,11 +120,14 @@
                 </a>
             </div><!--/myCarousel-->
         </div>
-<div class='mouse-position'>
-    <b id='mousemove'><b />
+<div class='mouse-position panel'>
+    <div class="panel-body">
+        <h6> <b id='mousemove'><b /></h6>
+    </div>
 </div>
 @Scripts.Render("~/bundles/appMapGlobal")
 @Scripts.Render("~/bundles/appMap")
+@Scripts.Render("~/bundles/Nota")
 }
 else
 {

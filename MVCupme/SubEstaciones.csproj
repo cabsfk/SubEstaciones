@@ -248,6 +248,7 @@
     <Content Include="images\baselayers\OSM.PNG" />
     <Content Include="images\baselayers\satelite.PNG" />
     <Content Include="images\baselayers\topografic.PNG" />
+    <Content Include="images\faviconupme.ico" />
     <Content Include="images\leyend\CentroPoblado.png" />
     <Content Include="images\leyend\Cluster.png" />
     <Content Include="images\leyend\Creacion.png" />
@@ -261,6 +262,7 @@
     <Content Include="images\loading.gif" />
     <Content Include="images\logo UPME.png" />
     <Content Include="images\logo.png" />
+    <Content Include="images\logo20.png" />
     <Content Include="images\portfolio\thumb\en_infraestructura.jpg" />
     <Content Include="images\portfolio\thumb\en_radiacion_solar.jpg" />
     <Content Include="images\portfolio\thumb\hi_infraestructura-petrolera.jpg" />
@@ -322,8 +324,13 @@
     <Content Include="images\slider\bg2.png" />
     <Content Include="images\slider\bg3.jpg" />
     <Content Include="images\slider\bg4.jpg" />
+    <Content Include="Scripts\app\Ayuda.js" />
     <Content Include="Scripts\app\Globalconfig.js" />
+    <Content Include="Scripts\app\MainActualizacion.js" />
     <Content Include="Scripts\app\MainIndex.js" />
+    <Content Include="Scripts\app\MainMapCrear.js" />
+    <Content Include="Scripts\app\MainMapEditar.js" />
+    <Content Include="Scripts\app\NotaAclaratoria.js" />
     <Content Include="Scripts\app\Usuarios.js" />
     <Content Include="Scripts\app\MainValidar.js" />
     <Content Include="Scripts\app\MainNav.js" />
@@ -361,6 +368,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ModelUsr2.cs</LastGenOutput>
     </Content>
+    <Content Include="Content\ManualSubEstaciones.pdf" />
     <None Include="Properties\PublishProfiles\UPME.pubxml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -559,6 +567,7 @@
     <Content Include="Scripts\libs\select-bootstrap\css\bootstrap-select.css.map" />
     <Content Include="Scripts\libs\select-bootstrap\js\bootstrap-select.js.map" />
     <Content Include="Scripts\libs\BootstrapDialog\less\bootstrap-dialog.less" />
+    <Content Include="Scripts\libs\esri-leaflet\README.md" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

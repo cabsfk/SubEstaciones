@@ -3,10 +3,16 @@
 Capas
 *******************************************************/
 var lyrSubEstacionsT,lyrSubEstacionsApro,lyrTotalSubEstaciones;
-var LyrSubEstacions = L.esri.featureLayer(dominio + urlHostSUEdit + 'FeatureServer/0');
-var LyrSubEstacions_T = L.esri.featureLayer(dominio + urlHostSUEdit + 'FeatureServer/1');
+var LyrSubEstacions = L.esri.featureLayer({
+    url: dominio + urlHostSUEdit + 'FeatureServer/0'
+});
+var LyrSubEstacions_T = L.esri.featureLayer({
+    url: dominio + urlHostSUEdit + 'FeatureServer/1'
+});
 
-var LyrSubEstacionsMap = L.esri.featureLayer(dominio + urlHostSUEdit + 'MapServer');
+var LyrSubEstacionsMap = L.esri.featureLayer({
+    url: dominio + urlHostSUEdit + 'MapServer'
+});
 
 var SubEstacionValidQuery_T = new L.esri.Tasks.Query({
     url: LyrSubEstacions_T.options.url

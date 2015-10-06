@@ -9,8 +9,12 @@ var turfCPDane, turfCPDanemerge, turfCPCircles;
 /***************************************
 //Definicion de Busquedas
 ***************************************/
-var LyrSubEstacions = L.esri.featureLayer(dominio + urlHostSUEdit + 'FeatureServer/0');
-var LyrSubEstacions_T = L.esri.featureLayer(dominio + urlHostSUEdit + 'FeatureServer/1');
+var LyrSubEstacions = L.esri.featureLayer({
+    url: dominio + urlHostSUEdit + 'FeatureServer/0'
+});
+var LyrSubEstacions_T = L.esri.featureLayer({
+    url: dominio + urlHostSUEdit + 'FeatureServer/1'
+});
 
 var ServiceDaneFind = L.esri.Tasks.find({
     url: dominio + urlHostDP + 'MapServer'
@@ -32,7 +36,9 @@ var SubEstacionQuery = L.esri.Tasks.query({
 var SubEstacionEditQuery = L.esri.Tasks.query({
     url: dominio + urlHostSUEdit + 'FeatureServer/1'
 });
-var lyrSubEstacionsVV_t = L.esri.featureLayer(dominio + urlHostSUEdit + 'FeatureServer/3');
+var lyrSubEstacionsVV_t = L.esri.featureLayer({
+    url: dominio + urlHostSUEdit + 'FeatureServer/3'
+});
 
 //*****************************************************************
 

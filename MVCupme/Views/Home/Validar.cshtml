@@ -70,12 +70,10 @@
                 <h3 class="panel-title">Edición Datos de SubEstaciones.</h3>
             </div>
             <div class="panel-body">
-                <form style="max-height:280px;overflow:scroll;">
-                    <div class="form-group">
+                <form style="max-height: 430px; overflow: scroll; OVERFLOW-X: hidden;">
+                    
                         <label for="EditInpNomCP">Nombre SubEstacion:</label>
                         <input type="text" class="form-control" id="EditInpNomCP" placeholder="">
-                    </div>
-                    <div class="form-group">
                         <label for="EditSectEstado">Estado:</label>
                         <select class="form-control" id="EditSectEstado">
                             <option value=""></option>
@@ -83,8 +81,6 @@
                             <option value="2">Fuera de Servicio</option>
                             <option value="3">Futura</option>
                         </select>
-                    </div>
-                    <div class="form-group">
                         <label>Fecha Entrada en Operación</label>
                         <div class="input-group date">
                             <input type="text" class="form-control" id="EditdateOperacion" data-container="body" data-placement="left" data-toggle="popover" data-trigger="focus" data-animation="true" />
@@ -92,8 +88,6 @@
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
                         </div>
-                    </div>
-                    <div class="form-group">
                         <label for="EditSectNivelTesion">Nivel de Tensión:</label>
                         <select class="form-control" id="EditSectNivelTesion" data-placement="left" data-toggle="popover" data-trigger="focus" data-animation="true">
                             <option value=""></option>
@@ -102,49 +96,34 @@
                             <option value="3">3</option>
                             <option value="4">4</option>
                         </select>
-                    </div>
-                    <div class="form-group">
                         <label for="EditSectTensionSub">Relación de Transformación:</label>
                         <select class="form-control" id="EditSectTensionSub">
                             <option value=""></option>
                         </select>
-                    </div>
-
-                    <div class="form-group ">
                         <label for="EditInpPorcentajeCarga">Cargabilidad (%):</label>
                         <input type="text" class="form-control input-sm" id="EditInpPorcentajeCarga" onkeypress="NumDecPos(event)" maxlength="6" data-placement="left" data-toggle="popover" data-trigger="focus" data-animation="true">
                         <p id="EditErrorPorcentajeCarga" class="text-warning"></p>
-                    </div>
-                    <div class="form-group">
                         <label for="EditInpCapacidadMVA">Capacidad Nominal (MVA):</label>
                         <input type="text" class="form-control input-sm" id="EditInpCapacidadMVA" onkeypress="NumDecPos(event)" maxlength="6">
-                    </div>
-
-                    <div class="form-group">
                         <label for="EditSectAmpliacion">Posibilidad de Ampliación:</label>
                         <select class="form-control" id="EditSectAmpliacion">
                             <option value=""></option>
                             <option value="0">NO</option>
                             <option value="1">SI</option>
                         </select>
-                    </div>
-
-                    <div class="form-group">
                         <label for="EditInpObservacion">Observación:</label>
                         <textarea class="form-control" id="EditInpObservacion" placeholder=""></textarea>
-                    </div>
                 </form>
-                <br />
-                <button class="btn btn-info pull-right " type="button" onclick="SaveFeature()">
+                <br>
+                <button class="btn btn-info pull-right btn-xs " type="button" onclick="SaveFeature()">
                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Guardar
                 </button>
-                <button class="btn btn-danger pull-left " type="button" onclick="CancelEditFeature()">
+                <button class="btn btn-danger pull-left  btn-xs " type="button" onclick="CancelEditFeature()">
                     <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Cancelar
                 </button>
             </div>
         </div>
     </div>
-
 
 
 <div id="carousel-panel-generic" style="width:230px">
@@ -160,13 +139,13 @@
                             <div class="col-sm-6 col-md-6" id="BaseESRIStreets" value="Streets">
                                 <a href="#" class="thumbnail">
                                     <img src="~/images/baselayers/calles.PNG" style="max-width:100%;">
-                                    <div class="carousel-caption"><center><h6>ESRI Streets</h6></center></div>
+                                    <div class="carousel-caption"><center><h6>Calles</h6></center></div>
                                 </a>
                             </div>
                             <div class="col-sm-6 col-md-6" id="BaseESRISatellite" value="Imagery">
                                 <a href="#" class="thumbnail">
                                     <img src="~/images/baselayers/satelite.PNG" style="max-width:100%;">
-                                    <div class="carousel-caption"><center><h6 style="color:rgba(255, 255, 255,1)">ESRI Satelite</h6></center></div>
+                                    <div class="carousel-caption"><center><h6 style="color:rgba(255, 255, 255,1)">Satelite</h6></center></div>
                                 </a>
                             </div>
                         </div><!--/row-fluid-->
@@ -176,7 +155,7 @@
                             <div class="col-sm-6 col-md-6" id="BaseESRITopo" value="Topographic">
                                 <a href="#" class="thumbnail">
                                     <img src="~/images/baselayers/topografic.PNG" style="max-width:100%;">
-                                    <div class="carousel-caption"><center><h6>ESRI Topographic</h6></center></div>
+                                    <div class="carousel-caption"><center><h6>Topografico</h6></center></div>
                                 </a>
                             </div>
                             <div class="col-sm-6 col-md-6" id="BaseOSM" value="OSM">
@@ -198,20 +177,20 @@
                 </a>
             </div><!--/myCarousel-->
         </div>
-    <div class='mouse-position'>
-        <b id='mousemove'><b />
+<div class='mouse-position panel'>
+    <div class="panel-body">
+        <h6> <b id='mousemove'><b /></h6>
     </div>
-    @Scripts.Render("~/bundles/appMapGlobal")
-    @Scripts.Render("~/bundles/appMapValidar")
+</div>
+    @Scripts.Render("~/bundles/appMapGlobal");
+    @Scripts.Render("~/bundles/appMapValidar");
 }
 else
 {
-<script>
+    <script>
         var direccion='@Url.Action("Index", "Home")';
-        
-        location.href = direccion;
-        
-</script>
+         location.href = direccion;
+    </script>
 
 }
 

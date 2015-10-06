@@ -82,7 +82,7 @@ function MapearSubEstacionEli() {
 function BorrarSubEstacion(id) {
     BootstrapDialog.show({
         title: 'Confirmar',
-        message: '¿Esta Seguro de eliminar el SubEstacion?',
+        message: '¿Esta Seguro de ELIMINAR la SubEstacion?',
         closable: false,
         data: {
             'callback': function (result) {
@@ -91,7 +91,7 @@ function BorrarSubEstacion(id) {
                         //console.log(featureCollection);
                         if (featureCollection.success == true) {
                             MapearSubEstacionEli();
-                            msj_exito("Se ELIMINO el SubEstacion exitosamente!");
+                            msj_exito("Se ELIMINO la SubEstacion exitosamente!");
                             return true;
                         } else {
                             msj_peligro("NO SE REALIZO , REVISE EL SERVIDOR DE MAPAS !");
