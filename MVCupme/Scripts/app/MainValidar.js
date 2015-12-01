@@ -108,7 +108,7 @@ function MapearSubEstacionActList() {
                     async: false,
                     success: function (json) {
                         datauser = json;
-                        console.log(datauser);
+                        
                     }
                 });
 
@@ -119,6 +119,9 @@ function MapearSubEstacionActList() {
                                         '<strong class="primary-font">' + feature.properties.NOM_SUBESTACION + '</strong>,<br> ' +
                                         '<small>Empresa: </small>' + datauser[0].organizacion + ', ' +
                                         '<small>Usuario: </small> ' + datauser[0].nombre + '<br />' +
+                                        '<small>email: </small> ' + datauser[0].email + '<br />' +
+                                        '<small>telefono: </small> ' + datauser[0].telefono +'-Ext:'+ datauser[0].ext +'<br />' +
+                                        '<small>celular: </small> ' + datauser[0].celular + '<br />' +
                                         '<small>Fecha Creación: </small> ' + feature.properties.FECHA_CREACION + '<br />' +
                                         html +
                                      '</h6>' +
@@ -311,6 +314,9 @@ function MapearSubEstacionValid() {
                                         '<strong class="primary-font">' + feature.properties.NOM_SUBESTACION + '</strong>,<br> '+
                                         '<small>Empresa: </small>' + datauser[0].organizacion + ', <br />' +
                                         '<small>Usuario: </small> ' + datauser[0].nombre + '<br />' +
+                                         '<small>email: </small> ' + datauser[0].email + '<br />' +
+                                        '<small>telefono: </small> ' + datauser[0].telefono + '-Ext:' + datauser[0].ext + '<br />' +
+                                        '<small>celular: </small> ' + datauser[0].celular + '<br />' +
                                     '</h5>' +
                                     '<div>' +
                                         '<small class="pull-right text-muted">' +

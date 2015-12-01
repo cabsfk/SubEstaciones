@@ -1,11 +1,10 @@
-﻿
-var dominio = "http://arcgis.simec.gov.co:6080"; //Dominio del arcgis server  http://localhost:6080
+﻿var dominio = "http://arcgis.simec.gov.co:6080"; //Dominio del arcgis server  http://localhost:6080
 
 
 //Servicio de Edicion de Arcgis
-var urlHostSUEdit = "/arcgis/rest/services/APP_SUBESTACIONES/UPME_EN_DI_SUBESTACION_CRUD/";
+var urlHostSUEdit = "/arcgis/rest/services/APP_SUBESTACIONES/UPME_EN_DI_SUBESTACION_edicion/";
 //Servicio de Consulta de Arcgis
-var urlHostSUCons = "/arcgis/rest/services/APP_SUBESTACIONES/UPME_EN_DI_SUBESTACION_QUERY/";
+var urlHostSUCons = "/arcgis/rest/services/APP_SUBESTACIONES/UPME_EN_DI_SUBESTACION_consulta/";
 //Servicio de Divicion politica de Arcgis
 var urlHostDP = "/arcgis/rest/services/UPME_BC/UPME_BC_Sitios_UPME_Division_Politica/";
 var notaAclaratoria = 'La UPME se permite disponer esta herramienta para la recolección de la información correspondiente a la ubicación geográfica de las subestaciones.Esta herramienta es una ayuda para que los operadores reporten información, produciéndose una capa propia de la UPME quien validará con otras fuentes la ubicación espacial de las localidades, para conseguir mayor calidad en la información para el Planeamiento de la Expansión de Cobertura de Energía Eléctrica.';
@@ -14,7 +13,7 @@ var notaAclaratoria = 'La UPME se permite disponer esta herramienta para la reco
 var buffetCP = 300;
 var id_user = idUsuario;
 var id_user_validacion = idUsuario;
-var  UsrOrgJson = "";
+var UsrOrgJson = "";
 console.log(idUsuario);
 
 
@@ -214,7 +213,7 @@ var query_estado = L.esri.Tasks.query({
 var json_estado;
 query_estado.where("1=1").returnGeometry(false).run(function (error, featureCollection) {
     json_estado = featureCollection;
-    
+
     if ($("#SectEstado").exists()) {
         iniEstado("");
     }
@@ -261,7 +260,7 @@ function clickmap(id, lyrname) {
     } else if (lyrname == "lyrTotalSubEstaciones") {
         lyrTotalSubEstaciones.eachLayer(function (marker) {
             if (marker.feature.id == id) {
-                
+
                 map.setView(marker.getLatLng(), 14);
                 //map.panTo(marker.getLatLng());
                 marker.openPopup();
@@ -276,15 +275,15 @@ function clickmap(id, lyrname) {
                 marker.openPopup();
             }
         });
-    }else if (lyrname == "BuscarTotal") {
+    } else if (lyrname == "BuscarTotal") {
         lyrTotalSubEstaciones.eachLayer(function (marker) {
             if (marker.feature.properties.ID_SUBESTACION == id) {
                 $("#panel_actualizar").hide(100);
                 map.setView(marker.getLatLng(), 14);
                 //map.panTo(marker.getLatLng());
-                 marker.openPopup();
+                marker.openPopup();
             }
-     });
+        });
     }
 
 }
@@ -305,7 +304,7 @@ function isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 }
 function ContPopUP(feature, latlng, botones) {
-   // console.log(feature.properties)
+    // console.log(feature.properties)
     var NIVEL_TENSION = (feature.properties.ID_NIVEL_TENSION == "Null") ? '-' : feature.properties.ID_NIVEL_TENSION;
     var TENSION = (feature.properties.ID_TENSION_SUB == "Null") ? 0 : (feature.properties.ID_TENSION_SUB.length > 2) ? feature.properties.ID_TENSION_SUB : arrayTension[feature.properties.ID_TENSION_SUB];
     var PORCENTAJE_CARGA = (isNumeric(feature.properties.PORCENTAJE_CARGA)) ? Number(feature.properties.PORCENTAJE_CARGA).toFixed(2) : Number(feature.properties.PORCENTAJE_CARGA.replace(",", ".")).toFixed(2);
@@ -314,7 +313,7 @@ function ContPopUP(feature, latlng, botones) {
     var AMPLIACION = (feature.properties.AMPLIACION == "Null") ? 0 : (feature.properties.AMPLIACION == "0") ? "NO" : (feature.properties.AMPLIACION == "1") ? "SI" : 0;
     var FECHA_CORTE_UPME = (feature.properties.FECHA_CORTE_UPME == "Null") ? "" : '<br><small>Fecha Corte Upme:</small> ' + feature.properties.FECHA_CORTE_UPME + ' ';
     var OBSERVACION = (feature.properties.OBSERVACION == "Null" || feature.properties.OBSERVACION == null) ? "" : '<br><small>Observación:</small> ' + feature.properties.OBSERVACION + ' ';
-    
+
     htmlpopup =
     '<div class="panel panel-primary">' +
         '<div class="panel-heading">Subestación</div>' +
@@ -329,11 +328,11 @@ function ContPopUP(feature, latlng, botones) {
                 '<small>Relación de trasformación:</small> ' + TENSION + ' <br>' +
                 '<small>Cargabilidad:</small> ' + PORCENTAJE_CARGA + '% <br>' +
                 '<small>Capacidad Nominal (MVA) :</small> ' + CAPACIDAD_MVA + '<br>' +
-                '<small>Posibilidad de Ampliación:</small> ' + AMPLIACION + ' ' +                
-                FECHA_CORTE_UPME+
+                '<small>Posibilidad de Ampliación:</small> ' + AMPLIACION + ' ' +
+                FECHA_CORTE_UPME +
                 OBSERVACION +
             '</div>' +
-            botones+
+            botones +
         '</div>' +
     '</div>';
     return htmlpopup;
@@ -356,7 +355,7 @@ function ContActualizacion(feature, latlng, botones) {
     var FECHA_CORTE_UPME = (feature.properties.FECHA_CORTE_UPME == "Null") ? "" : '<br><small>Fecha Corte Upme:</small> ' + feature.properties.FECHA_CORTE_UPME + ' ';
     var OBSERVACION = (feature.properties.OBSERVACION == "Null") ? "" : '<br><small>Observación:</small> ' + feature.properties.OBSERVACION + ' ';
 
-    var html =  '<small>Estado:</small> ' + ID_ESTADO_SUB + '<br>' +
+    var html = '<small>Estado:</small> ' + ID_ESTADO_SUB + '<br>' +
                 '<small>Fecha Entrada En Operación:</small> ' + feature.properties.FECHA_OPERACION + ' <br>' +
                 '<small>Nivel Tensión:</small> ' + NIVEL_TENSION + '<br>' +
                 '<small>Relación de trasformación:</small> ' + TENSION + ' <br>' +
@@ -364,7 +363,7 @@ function ContActualizacion(feature, latlng, botones) {
                 '<small>Capacidad Nominal (MVA) :</small> ' + CAPACIDAD_MVA + '<br>' +
                 '<small>Posibilidad de Ampliación:</small> ' + AMPLIACION + ' ' +
                 FECHA_CORTE_UPME +
-                OBSERVACION ;
+                OBSERVACION;
     return html;
 }
 function NumDec(event) {

@@ -9,7 +9,7 @@ namespace MVCupme.Controllers
 {
     public class GlobalVariables
     {
-        private const int cod_modulo = 7;
+        private const int cod_modulo = 6;
 
         // read-write variable
         public static string idUsuario
@@ -54,11 +54,9 @@ namespace MVCupme.Controllers
             bool ok = false;
             long idusr = Convert.ToInt32(idUsuario);
             var tmp = dbUsr.MUB_USUARIOS_ROLES.Where(u => u.ID_USUARIO == idusr).Include(m => m.MUB_ROL).Where(r => r.MUB_ROL.ID_MODULO == idModulo).Include(d => d.MUB_ROL.MUB_MODULOS);
-            foreach (var item in tmp)
-            {
+            foreach (var item in tmp){
                 string nom_rol = item.MUB_ROL.NOMBRE.ToString();
-                if (rol == nom_rol)
-                {
+                if (rol == nom_rol){
                     ok = true;
                 }
             }

@@ -169,7 +169,9 @@ $("#Pgn3Sig").click(function () {
 $("#Pgn4Ant").click(function () {
     $("#FormCPPgn4").addClass("hide");
     $("#FormCPPgn3").removeClass("hide");
-    
+    if (map.hasLayer(LyrMunicipio)) {
+        LyrMunicipio.on('click', onMapClick);
+    }
 });
 
 $("#Pgn4Sig").click(function () {
@@ -292,10 +294,13 @@ Busqueda Por Municipio!!!
 $("#city").autocomplete({
     source: function (request, response) {
         $("#BtnBusquedaMun").empty().append("<span class='glyphicon glyphicon-repeat'></span>").removeClass("btn-default").addClass("btn-warning");
-        ServiceDaneFind.layers('0').text(request.term).fields('MPIO_CNMBRSA,MPIO_CNMBR');
+        var ServiceDaneFindCity = L.esri.Tasks.find({
+            url: dominio + urlHostDP + 'MapServer/'
+        });
+        ServiceDaneFindCity.returnGeometry(false).layers('0').text(request.term).fields('MPIO_CNMBRSA,MPIO_CNMBR');
         // ServiceDaneFind.params.layerDefs ="1:CLASE='3'";
 
-        ServiceDaneFind.run(function (error, featureCollection, response2) {
+        ServiceDaneFindCity.run(function (error, featureCollection, response2) {
             console.log(featureCollection);
             $("#BtnBusquedaMun").empty().append("<span class='glyphicon glyphicon-search'></span>").removeClass("btn-warning").addClass("btn-default");
             response($.map(featureCollection.features, function (el) {
@@ -315,9 +320,17 @@ $("#city").autocomplete({
         if (map.hasLayer(LyrMunicipio)) {
             map.removeLayer(LyrMunicipio);
         }
+        var querycity = L.esri.Tasks.query({
+            url: dominio + urlHostDP + 'MapServer/0'
+        });
         limpiarRadios();
-        selAlfMun(ui.item.geojson, ui.item.MPIO, ui.item.DPTO);
-        MapearSubEstacion(ui.item.geojson, ui.item.MPIO, ui.item.DPTO);
+        querycity.where('DPTO_CCDGO=' + ui.item.DPTO + ' and MPIO_CCDGO=' + ui.item.MPIO);
+        waitingDialog.show();
+        querycity.run(function (error, featureCollection, response) {
+            waitingDialog.hide();
+            selAlfMun(featureCollection.features[0], ui.item.MPIO, ui.item.DPTO);
+            MapearSubEstacion(featureCollection.features[0], ui.item.MPIO, ui.item.DPTO);
+        });
     },
     open: function () {
         $(this).removeClass("ui-corner-all").addClass("ui-corner-top");
