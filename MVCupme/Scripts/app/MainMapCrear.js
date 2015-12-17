@@ -66,6 +66,7 @@ function CrearSubEstacion(UbiCP) {
                 if (result) {
                     LyrSubEstacions_T.addFeature(UbiCP, function (error, featureCollection, response2) {
                         //console.log(featureCollection);
+                        waitingDialog.hide();
                         if (featureCollection.success == true) {
                             msj_exito("Se CREO la SubEstacion exitosamente!");
                             $("#FormCPPgn4").addClass("hide");
@@ -93,6 +94,7 @@ function CrearSubEstacion(UbiCP) {
             action: function (dialog) {
                 typeof dialog.getData('callback') === 'function' && dialog.getData('callback')(true);
                 dialog.close();
+                waitingDialog.show();
             }
         }]
     });

@@ -21,7 +21,7 @@
                 return CP;
             }
         });
-
+        waitingDialog.hide();
         lyrSubEstacionsApro.addTo(map);
         $('#ListaSubEstacionsActValid').searchable({
             searchField: '#container-search-ActSubEst',
@@ -61,7 +61,7 @@ function MapearSubEstacionAct() {
                 return CP;
             }
         });
-
+        waitingDialog.hide();
         lyrSubEstacionsApro.addTo(map);
         $('#ListaSubEstacionsAct').searchable({
             searchField: '#container-search-ACT',
@@ -141,6 +141,7 @@ function ActSubEstacion(ActUbiCP) {
             action: function (dialog) {
                 typeof dialog.getData('callback') === 'function' && dialog.getData('callback')(true);
                 dialog.close();
+                waitingDialog.show();
             }
         }]
     });
@@ -232,6 +233,7 @@ function BorrarActualizacion(id) {
             action: function (dialog) {
                 typeof dialog.getData('callback') === 'function' && dialog.getData('callback')(true);
                 dialog.close();
+                waitingDialog.show();
             }
         }]
     });

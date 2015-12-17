@@ -215,7 +215,7 @@ function AprobarActualizacion(id) {
             action: function (dialog) {
                 typeof dialog.getData('callback') === 'function' && dialog.getData('callback')(true);
                 dialog.close();
-
+                waitingDialog.show();
             }
         }]
     });
@@ -263,6 +263,7 @@ function RechazarActualizacion(id) {
             action: function (dialog) {
                 typeof dialog.getData('callback') === 'function' && dialog.getData('callback')(true);
                 dialog.close();
+                waitingDialog.show();
             }
         }]
     });
@@ -274,6 +275,7 @@ function MapearSubEstacionValid() {
     SubEstacionValidFind.params.layerDefs = "1:ACTIVO=1";
     SubEstacionValidFind.text("0").fields('ACTUALIZACION');
     SubEstacionValidFind.run(function (error, featureCollection, response2) {
+        waitingDialog.hide();
         var CP, htmlpopup, clase;
         Limpiar();
         if (map.hasLayer(lyrSubEstacionsT)) {
@@ -410,6 +412,7 @@ function AprobarCreacion(id) {
             action: function (dialog) {
                 typeof dialog.getData('callback') === 'function' && dialog.getData('callback')(true);
                 dialog.close();
+                waitingDialog.show();
                 
             }
         }]
@@ -459,6 +462,7 @@ function RechazarCreacion(id) {
             action: function (dialog) {
                     typeof dialog.getData('callback') === 'function' && dialog.getData('callback')(true);
                     dialog.close();
+                    waitingDialog.show();
             }
         }]
     });

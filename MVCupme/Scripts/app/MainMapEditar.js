@@ -61,7 +61,7 @@ function MapearSubEstacionEli() {
                 return CP;
             }
         });
-
+        waitingDialog.hide();
         lyrSubEstacionsT.addTo(map);
         $('#ListaSubEstacionsEli').searchable({
             searchField: '#container-search-CPELI',
@@ -114,6 +114,7 @@ function BorrarSubEstacion(id) {
             action: function (dialog) {
                 typeof dialog.getData('callback') === 'function' && dialog.getData('callback')(true);
                 dialog.close();
+                waitingDialog.show();
             }
         }]
     });
@@ -130,6 +131,7 @@ function EditSubEstacion(EditUbiCP) {
                 if (result) {
                     LyrSubEstacions_T.updateFeature(EditUbiCP, function (error, featureCollection, response2) {
                         //console.log(featureCollection);
+                        
                         if (featureCollection.success == true) {
                             console.log(Nombrepagina);
                             if (Nombrepagina == "Validar") {
@@ -162,6 +164,7 @@ function EditSubEstacion(EditUbiCP) {
             action: function (dialog) {
                 typeof dialog.getData('callback') === 'function' && dialog.getData('callback')(true);
                 dialog.close();
+                waitingDialog.show();
             }
         }]
     });
