@@ -25,6 +25,7 @@ if (idUsuario != "") {
     $.getJSON("../../SubEstaciones/Home/UsrOrgJson?idusuario=" + idUsuario, function (data) {
         UsrOrgJson = data;
         $("#tituloOrganizacion").empty().append(UsrOrgJson[0].organizacion);
+        MapearSubEstacionTotal();
     });
 } else {
     location.href = prefijo;

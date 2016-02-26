@@ -249,7 +249,13 @@ Mapear Todos las SubEstaciones
 function MapearSubEstacionTotal() {
 
     SubEstacionFind.layers('0');
-    SubEstacionFind.params.layerDefs = "";
+    
+    if (UsrOrgJson[0].idorganizacion == 1) {
+        SubEstacionFind.params.layerDefs = "";
+    } else {
+        SubEstacionFind.params.layerDefs = "0:ID_ORGANIZACION=" + UsrOrgJson[0].idorganizacion;
+    }
+    
     SubEstacionFind.text('1').fields('ACTIVO');//.fields("ID_FUENTE_CP,ID_CLASE, ID_TIPO,NOMBRE_SITIO,V_URBANO, V_RURAL, VSS_URBANO, VSS_RURAL");
     SubEstacionFind.run(function (error, featureCollection, response2) {
 
@@ -285,7 +291,7 @@ function MapearSubEstacionTotal() {
 }
 
 $("#MisActualizarVV").prop("disabled", true);
-MapearSubEstacionTotal();
+
 
 
 /*

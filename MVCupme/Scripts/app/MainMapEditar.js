@@ -2,6 +2,11 @@
 
     SubEstacionEliFind.layers('0');
     SubEstacionEliFind.params.layerDefs = "";
+    if (UsrOrgJson[0].idorganizacion == 1) {
+        SubEstacionEliFind.params.layerDefs = "";
+    } else {
+        SubEstacionEliFind.params.layerDefs = "0:ID_ORGANIZACION=" + UsrOrgJson[0].idorganizacion;
+    }
     SubEstacionEliFind.text(id_user).fields('ID_CONTACTO');
     SubEstacionEliFind.run(function (error, featureCollection, response2) {
         var CP, htmlpopup, clase;
