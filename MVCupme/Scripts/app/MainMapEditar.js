@@ -185,9 +185,9 @@ function EditFeature() {
     EditUbiCP.properties.CAPACIDAD_MVA = $("#EditInpCapacidadMVA").val().replace(".", ",");
     EditUbiCP.properties.COD_SUB_UPME = 7;
     EditUbiCP.properties.FECHA_OPERACION = $('#EditdateOperacion').data("DateTimePicker").date().format('DD/MM/YYYY');
-    //EditUbiCP.properties.ID_CONTACTO = id_user;
+    EditUbiCP.properties.ID_CONTACTO = UsrOrgJson[0].idusuario;
     EditUbiCP.properties.ID_ESTADO_SUB = $("#EditSectEstado").val();
-    //EditUbiCP.properties.ID_ORGANIZACION = UsrOrgJson[0].idorganizacion;
+    EditUbiCP.properties.ID_ORGANIZACION = UsrOrgJson[0].idorganizacion;
     EditUbiCP.properties.ID_SUBESTACION = 0;
     EditUbiCP.properties.LONGITUD = EditUbiCP.geometry.coordinates[0];
     EditUbiCP.properties.LATITUD = EditUbiCP.geometry.coordinates[1];

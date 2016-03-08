@@ -14,7 +14,7 @@ var buffetCP = 300;
 var id_user = idUsuario;
 var id_user_validacion = idUsuario;
 var UsrOrgJson = "";
-console.log(idUsuario);
+
 
 
 var pagina = document.URL.split("/");
@@ -32,6 +32,10 @@ if (idUsuario != "") {
 }
 
 
+var glo = {
+    ArraydataOrg: [],
+    DataOrg: []
+};
 
 var geojsonMarkerSinAprobar = { icon: L.AwesomeMarkers.icon({ icon: 'home', prefix: 'fa', markerColor: 'orange' }), riseOnHover: true };
 var geojsonMarkerSubEstacion = { icon: L.AwesomeMarkers.icon({ icon: 'bolt', prefix: 'fa', markerColor: 'cadetblue' }), riseOnHover: true };

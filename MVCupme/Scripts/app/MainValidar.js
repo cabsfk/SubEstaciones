@@ -87,7 +87,7 @@ function MapearSubEstacionActList() {
         lyrSubEstacionsApro = L.geoJson(featureCollection, {
             pointToLayer: function (feature, latlng) {
                 var clase, estilo;
-                estilo = geojsonMarkerSubEstacion;
+                estilo = geojsonMarkerSinAprobar;
                 CP = L.marker(latlng, estilo).bindLabel(feature.properties.NOM_SUBESTACION, { noHide: false, offset: [20, -45] });
                 var htmlBotones = '<div class="popupstyle">' +
                                     '<div class="popupstyle">' +
@@ -101,16 +101,20 @@ function MapearSubEstacionActList() {
                 /*var htmlpopup = ContPopUP(feature, latlng, htmlBotones);
                 CP.bindPopup(htmlpopup);*/
                 var html = ContActualizacion(feature, latlng, htmlBotones);
-                var datauser="";
-                $.ajax({
-                    url: "../../SubEstaciones/Home/UsrOrgJson?idusuario=" + feature.properties.ID_CONTACTO,
-                    dataType: 'json',
-                    async: false,
-                    success: function (json) {
-                        datauser = json;
-                        
-                    }
-                });
+                var datauser = "";
+                if (glo.ArraydataOrg.indexOf(feature.properties.ID_CONTACTO) < 0) {
+                    glo.ArraydataOrg.push(feature.properties.ID_CONTACTO);
+                    $.ajax({
+                        url: "../../SubEstaciones/Home/UsrOrgJson?idusuario=" + feature.properties.ID_CONTACTO,
+                        dataType: 'json',
+                        async: false,
+                        success: function (json) {
+                            glo.DataOrg.push(json);
+                        }
+                    });
+                }
+                datauser = glo.DataOrg[glo.ArraydataOrg.indexOf(feature.properties.ID_CONTACTO)]
+
 
                 $("#ListaSubEstacionsActValid .chat").prepend(
                      '<li class="left" onclick="clickmap(' + feature.properties.ID_SUBESTACION + ',\'BuscarTotal\')">' +
@@ -132,8 +136,8 @@ function MapearSubEstacionActList() {
                 return CP;
             }
         });
-
-        lyrSubEstacionsApro.addTo(map);
+        //CPCluster.clearLayers();
+        //lyrSubEstacionsApro.addTo(map);
         
         $('#ListaSubEstacionsActValid').searchable({
             searchField: '#container-search-ActSubEst',
@@ -300,15 +304,20 @@ function MapearSubEstacionValid() {
                 var htmlpopup = ContPopUP(feature, latlng, htmlBotones);
                 CP.bindPopup(htmlpopup);
                 var datauser = "";
-                $.ajax({
-                    url: "../../SubEstaciones/Home/UsrOrgJson?idusuario=" + feature.properties.ID_CONTACTO,
-                    dataType: 'json',
-                    async: false,
-                    success: function (json) {
-                        datauser = json;
-                        console.log(datauser);
-                    }
-                });
+                if (glo.ArraydataOrg.indexOf(feature.properties.ID_CONTACTO) < 0) {
+                    glo.ArraydataOrg.push(feature.properties.ID_CONTACTO);
+                    $.ajax({
+                        url: "../../SubEstaciones/Home/UsrOrgJson?idusuario=" + feature.properties.ID_CONTACTO,
+                        dataType: 'json',
+                        async: false,
+                        success: function (json) {
+                            glo.DataOrg.push(json);
+                        }
+                    });
+                }
+                datauser=glo.DataOrg[glo.ArraydataOrg.indexOf(feature.properties.ID_CONTACTO)]
+
+                
                 $("#ListaCpValidate .chat").prepend(
                      '<li class="left" onclick="clickmap(' + feature.properties.OBJECTID + ',\'lyrSubEstacionsT\')">' +
                                 '<div class="clearfix">' +

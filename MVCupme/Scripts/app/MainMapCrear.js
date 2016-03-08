@@ -110,7 +110,7 @@ function CrearFeature(prevalue) {
     UbiCP.properties.CAPACIDAD_MVA = $("#InpCapacidadMVA").val().replace(".", ",");
     UbiCP.properties.COD_SUB_UPME = 7;
     UbiCP.properties.FECHA_OPERACION = $('#dateOperacion').data("DateTimePicker").date().format('DD/MM/YYYY');
-    UbiCP.properties.ID_CONTACTO = id_user;
+    UbiCP.properties.ID_CONTACTO = UsrOrgJson[0].idusuario;
     UbiCP.properties.ID_ESTADO_SUB = $("#SectEstado").val();
     UbiCP.properties.ID_ORGANIZACION = UsrOrgJson[0].idorganizacion;
     UbiCP.properties.ID_SUBESTACION = 0;

@@ -1170,3 +1170,10 @@ ul.faq li > div h3 {
 	margin: 0 0 5px;
 	color: #777;
 }
+
+#panel_actualizar {
+    position: absolute;
+    top: 50px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.1);
+}

@@ -1,7 +1,7 @@
 ﻿function MapearSubEstacionActList() {
     SubEstacionEliFind.layers('1');
-    SubEstacionEliFind.params.layerDefs = "1:ACTUALIZACION=1 AND ACTIVO=1";
-    SubEstacionEliFind.text(id_user).fields('ID_CONTACTO');
+    SubEstacionEliFind.params.layerDefs = "1:ACTUALIZACION=1 and ID_ORGANIZACION=" + UsrOrgJson[0].idorganizacion;
+    SubEstacionEliFind.text('1').fields('ACTIVO');
     SubEstacionEliFind.run(function (error, featureCollection, response2) {
         var CP, htmlpopup, clase;
         LimpiarActValid();
@@ -156,6 +156,8 @@ function ActFeature() {
     ActUbiCP.properties.CAPACIDAD_MVA = $("#ActInpCapacidadMVA").val().replace(".", ",");
     ActUbiCP.properties.FECHA_OPERACION = $('#ActdateOperacion').data("DateTimePicker").date().format('DD/MM/YYYY');
     ActUbiCP.properties.ID_ESTADO_SUB = $("#ActSectEstado").val();
+    ActUbiCP.properties.ID_CONTACTO = UsrOrgJson[0].idusuario;
+    ActUbiCP.properties.ID_ORGANIZACION = UsrOrgJson[0].idorganizacion;
     ActUbiCP.properties.LONGITUD = ActUbiCP.geometry.coordinates[0];
     ActUbiCP.properties.LATITUD = ActUbiCP.geometry.coordinates[1];
     ActUbiCP.properties.ID_NIVEL_TENSION = $("#ActSectNivelTesion").val();
